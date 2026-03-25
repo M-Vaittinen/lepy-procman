@@ -35,6 +35,9 @@ typedef struct {
 
 	int auto_apply; /* mirror of CLI flag */
 	int pending_g;  /* for multi-key gg / GG sequences */
+
+	int rules_cursor; /* selected row in :rules overlay */
+	int rules_scroll; /* top visible row in :rules overlay */
 } ui_state_t;
 
 /* Initialize ncurses and ui_state. Returns 0 on success. */

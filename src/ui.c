@@ -179,6 +179,153 @@ static void show_overlay(const char **lines, int nlines, const char *title)
 	halfdelay(REFRESH_TENTHS); /* restore timed refresh */
 }
 
+/*
+ * Interactive rules overlay.
+ * Shows the saved rules list with a highlighted cursor row.
+ * Keys: ↑/↓ or j/k navigate, d deletes selected rule, Esc/q closes.
+ * Returns 1 if any rule was deleted (so caller can re-save), 0 otherwise.
+ */
+static int show_rules_interactive(ui_state_t *ui)
+{
+	int deleted = 0;
+
+	cbreak(); /* block on each keypress while overlay is open */
+
+redraw_rules: {
+	int n = ui->rules->count;
+	int rows, cols;
+	getmaxyx(stdscr, rows, cols);
+
+	/* Box dimensions: header row + one row per rule + footer */
+	int content = (n == 0) ? 1 : n + 1;
+	int box_h = content + 4;
+	int box_w = 52;
+	if (box_w > cols - 2)
+		box_w = cols - 2;
+	if (box_h > rows - 2)
+		box_h = rows - 2;
+
+	int start_y = (rows - box_h) / 2;
+	int start_x = (cols - box_w) / 2;
+
+	/* Background fill */
+	attron(A_REVERSE);
+	for (int r = 0; r < box_h; r++)
+		mvhline(start_y + r, start_x, ' ', box_w);
+	attroff(A_REVERSE);
+
+	/* Border */
+	attron(A_BOLD);
+	mvhline(start_y, start_x + 1, ACS_HLINE, box_w - 2);
+	mvhline(start_y + box_h - 1, start_x + 1, ACS_HLINE, box_w - 2);
+	mvvline(start_y + 1, start_x, ACS_VLINE, box_h - 2);
+	mvvline(start_y + 1, start_x + box_w - 1, ACS_VLINE, box_h - 2);
+	mvaddch(start_y, start_x, ACS_ULCORNER);
+	mvaddch(start_y, start_x + box_w - 1, ACS_URCORNER);
+	mvaddch(start_y + box_h - 1, start_x, ACS_LLCORNER);
+	mvaddch(start_y + box_h - 1, start_x + box_w - 1, ACS_LRCORNER);
+	attroff(A_BOLD);
+
+	/* Title */
+	char title[64];
+	snprintf(title, sizeof(title), " Saved Rules (%d) ", n);
+	attron(A_BOLD | A_REVERSE);
+	mvprintw(start_y,
+	         start_x + (box_w - (int)strlen(title) - 2) / 2,
+	         " %s ",
+	         title);
+	attroff(A_BOLD | A_REVERSE);
+
+	if (n == 0) {
+		move(start_y + 2, start_x + 2);
+		addstr("(no rules saved)");
+	} else {
+		/* Column header */
+		attron(A_BOLD);
+		mvprintw(start_y + 2,
+		         start_x + 2,
+		         " # %-20s  %s",
+		         "Process Name",
+		         "oom_score_adj");
+		attroff(A_BOLD);
+
+		int avail = box_h - 5; /* visible rule rows */
+		/* Clamp cursor */
+		if (ui->rules_cursor >= n)
+			ui->rules_cursor = n - 1;
+		if (ui->rules_cursor < 0)
+			ui->rules_cursor = 0;
+
+		/* Scroll window */
+		if (ui->rules_cursor < ui->rules_scroll)
+			ui->rules_scroll = ui->rules_cursor;
+		if (ui->rules_cursor >= ui->rules_scroll + avail)
+			ui->rules_scroll = ui->rules_cursor - avail + 1;
+
+		for (int i = 0; i < avail && i < n; i++) {
+			int idx = ui->rules_scroll + i;
+			if (idx >= n)
+				break;
+			int row = start_y + 3 + i;
+			int sel = (idx == ui->rules_cursor);
+			if (sel)
+				attron(A_BOLD | A_REVERSE);
+			else
+				attron(A_REVERSE);
+			mvhline(row, start_x + 1, ' ', box_w - 2);
+			mvprintw(row,
+			         start_x + 2,
+			         " %d %-20s  %d",
+			         idx + 1,
+			         ui->rules->entries[idx].name,
+			         ui->rules->entries[idx].oom_score_adj);
+			attroff(A_BOLD | A_REVERSE);
+		}
+	}
+
+	/* Footer */
+	const char *footer =
+	        n ? " ↑↓/jk navigate  d delete  Esc/q close " : " Esc/q close ";
+	mvprintw(start_y + box_h - 1,
+	         start_x + (box_w - (int)strlen(footer)) / 2,
+	         "%s",
+	         footer);
+
+	refresh();
+}
+
+	int ch = getch();
+	int n = ui->rules->count;
+
+	if (ch == 27 || ch == 'q') {
+		/* close */
+	} else if ((ch == KEY_UP || ch == 'k') && n > 0) {
+		if (ui->rules_cursor > 0)
+			ui->rules_cursor--;
+		goto redraw_rules;
+	} else if ((ch == KEY_DOWN || ch == 'j') && n > 0) {
+		if (ui->rules_cursor < n - 1)
+			ui->rules_cursor++;
+		goto redraw_rules;
+	} else if (ch == 'd' && n > 0) {
+		rules_remove(ui->rules,
+		             ui->rules->entries[ui->rules_cursor].name);
+		rules_save(ui->rules);
+		deleted = 1;
+		/* keep cursor in bounds */
+		if (ui->rules_cursor >= ui->rules->count &&
+		    ui->rules_cursor > 0)
+			ui->rules_cursor--;
+		goto redraw_rules;
+	} else {
+		goto redraw_rules;
+	}
+
+	halfdelay(REFRESH_TENTHS);
+	touchwin(stdscr);
+	return deleted;
+}
+
 static void draw_header(ui_state_t *ui)
 {
 	attron(COLOR_PAIR(COLOR_HEADER) | A_BOLD);
@@ -387,8 +534,9 @@ static void execute_command(ui_state_t *ui)
 		        "  :sort p          Sort by PID",
 		        "  :apply           Apply stored rules",
 		        "  :save            Save selected process rule",
-		        "  :rules           List all saved rules",
-		        "  :del <name>      Remove a saved rule by name",
+		        "  :rules           List rules (interactive, d=delete)",
+		        "  :del <name|num>  Remove a saved rule by name or "
+		        "number",
 		        "  :q  :quit        Quit",
 		        "  :\xc3\x84o\xc3\x84              ???",
 		};
@@ -397,71 +545,51 @@ static void execute_command(ui_state_t *ui)
 		touchwin(stdscr);
 
 	} else if (strcmp(cmd, "rules") == 0) {
-		/* Build overlay lines from saved rules */
-		int n = ui->rules->count;
-		if (n == 0) {
-			const char *empty[] = {"(no rules saved)"};
-			show_overlay(empty, 1, " Saved Rules (0) ");
-		} else {
-			/* +1 for header separator */
-			const char **lines =
-			        malloc((size_t)(n + 1) * sizeof(char *));
-			char (*bufs)[512] = malloc((size_t)(n + 1) * 512);
-			if (lines && bufs) {
-				snprintf(bufs[0],
-				         512,
-				         "  %-24s  %s",
-				         "Process Name",
-				         "oom_score_adj");
-				lines[0] = bufs[0];
-				for (int i = 0; i < n; i++) {
-					snprintf(bufs[i + 1],
-					         512,
-					         "  %-24s  %d",
-					         ui->rules->entries[i].name,
-					         ui->rules->entries[i]
-					                 .oom_score_adj);
-					lines[i + 1] = bufs[i + 1];
-				}
-				char title[64];
-				snprintf(title,
-				         sizeof(title),
-				         " Saved Rules (%d) ",
-				         n);
-				show_overlay(lines, n + 1, title);
-				touchwin(stdscr);
-			}
-			free(lines);
-			free(bufs);
-		}
+		show_rules_interactive(ui);
+		/* Refresh display after overlay closes */
+		search_filter(ui->results, ui->procs, ui->search_term);
+		sort_results(ui);
 
 	} else if (strncmp(cmd, "del", 3) == 0 &&
 	           (cmd[3] == ' ' || cmd[3] == '\0')) {
-		const char *name = cmd + 3;
-		while (*name == ' ')
-			name++;
-		if (*name == '\0') {
-			set_status(ui, "Usage: :del <process-name>");
-		} else if (rules_remove(ui->rules, name)) {
-			if (rules_save(ui->rules) == 0) {
+		const char *arg = cmd + 3;
+		while (*arg == ' ')
+			arg++;
+		if (*arg == '\0') {
+			set_status(ui, "Usage: :del <name> or :del <number>");
+		} else {
+			const char *name = arg;
+			/* If argument is a number, resolve to rule name */
+			char num_name[PROC_NAME_MAX];
+			int idx = atoi(arg);
+			if (idx > 0 && idx <= ui->rules->count) {
+				snprintf(num_name,
+				         sizeof(num_name),
+				         "%s",
+				         ui->rules->entries[idx - 1].name);
+				name = num_name;
+			}
+			if (rules_remove(ui->rules, name)) {
+				if (rules_save(ui->rules) == 0) {
+					char msg[512];
+					snprintf(msg,
+					         sizeof(msg),
+					         "Removed rule: %s",
+					         name);
+					set_status(ui, msg);
+				} else {
+					set_status(ui,
+					           "Rule removed but "
+					           "could not save file.");
+				}
+			} else {
 				char msg[512];
 				snprintf(msg,
 				         sizeof(msg),
-				         "Removed rule: %s",
+				         "No saved rule for: %s",
 				         name);
 				set_status(ui, msg);
-			} else {
-				set_status(ui,
-				           "Rule removed but could not save "
-				           "file.");
 			}
-		} else {
-			char msg[512];
-			snprintf(msg,
-			         sizeof(msg),
-			         "No saved rule for: %s",
-			         name);
-			set_status(ui, msg);
 		}
 
 	} else if (strncmp(cmd, "sort", 4) == 0 &&

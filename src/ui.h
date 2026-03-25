@@ -32,6 +32,7 @@ typedef struct {
 
 	char status_msg[512]; /* transient status line message */
 	int status_ticks;     /* countdown to clear status_msg */
+	int status_is_error;  /* non-zero → show status bar in red */
 
 	int auto_apply; /* mirror of CLI flag */
 	int pending_g;  /* for multi-key gg / GG sequences */

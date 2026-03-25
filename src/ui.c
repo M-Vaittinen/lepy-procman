@@ -25,6 +25,7 @@
 #define COLOR_OOM_POS 4
 #define COLOR_OOM_NEG 5
 #define COLOR_CMD 6
+#define COLOR_ERROR 7
 
 /* UTF-8 strings for the easter egg (stored as raw bytes) */
 static const char EASTER_MSG[] = "Älä Ole Äkänen";
@@ -98,6 +99,15 @@ static void set_status(ui_state_t *ui, const char *msg)
 	strncpy(ui->status_msg, msg, sizeof(ui->status_msg) - 1);
 	ui->status_msg[sizeof(ui->status_msg) - 1] = '\0';
 	ui->status_ticks = 5; /* show for ~5 refresh cycles */
+	ui->status_is_error = 0;
+}
+
+static void set_status_error(ui_state_t *ui, const char *msg)
+{
+	strncpy(ui->status_msg, msg, sizeof(ui->status_msg) - 1);
+	ui->status_msg[sizeof(ui->status_msg) - 1] = '\0';
+	ui->status_ticks = 5;
+	ui->status_is_error = 1;
 }
 
 /*
@@ -410,13 +420,19 @@ static void draw_process_list(ui_state_t *ui)
 static void draw_status_bar(ui_state_t *ui)
 {
 	int row = ui->rows - 2;
-	attron(COLOR_PAIR(COLOR_STATUS));
+	int color = (ui->status_ticks > 0 && ui->status_is_error)
+	                    ? COLOR_ERROR
+	                    : COLOR_STATUS;
+
+	attron(COLOR_PAIR(color));
 	mvhline(row, 0, ' ', ui->cols);
 
 	if (ui->status_ticks > 0) {
 		move(row, 1);
 		addstr(ui->status_msg);
 	} else {
+		/* Error flag cleared once message expires */
+		ui->status_is_error = 0;
 		int n = ui->results->count;
 		int total = ui->procs->count;
 		mvprintw(row,
@@ -427,7 +443,7 @@ static void draw_status_bar(ui_state_t *ui)
 		         n,
 		         total);
 	}
-	attroff(COLOR_PAIR(COLOR_STATUS));
+	attroff(COLOR_PAIR(color));
 }
 
 static void draw_mode_line(ui_state_t *ui)
@@ -505,7 +521,9 @@ static void execute_command(ui_state_t *ui)
 
 	/* Easter egg: ÄoÄ */
 	if (strcmp(cmd, EASTER_CMD) == 0) {
-		set_status(ui, EASTER_MSG);
+		const char *egg[] = {EASTER_MSG};
+		show_overlay(egg, 1, "");
+		touchwin(stdscr);
 
 	} else if (strcmp(cmd, "help") == 0 || strcmp(cmd, "h") == 0) {
 		const char *lines[] = {
@@ -556,7 +574,8 @@ static void execute_command(ui_state_t *ui)
 		while (*arg == ' ')
 			arg++;
 		if (*arg == '\0') {
-			set_status(ui, "Usage: :del <name> or :del <number>");
+			set_status_error(ui,
+			                 "Usage: :del <name> or :del <number>");
 		} else {
 			const char *name = arg;
 			/* If argument is a number, resolve to rule name */
@@ -578,9 +597,10 @@ static void execute_command(ui_state_t *ui)
 					         name);
 					set_status(ui, msg);
 				} else {
-					set_status(ui,
-					           "Rule removed but "
-					           "could not save file.");
+					set_status_error(
+					        ui,
+					        "Rule removed but "
+					        "could not save file.");
 				}
 			} else {
 				char msg[512];
@@ -588,7 +608,7 @@ static void execute_command(ui_state_t *ui)
 				         sizeof(msg),
 				         "No saved rule for: %s",
 				         name);
-				set_status(ui, msg);
+				set_status_error(ui, msg);
 			}
 		}
 
@@ -605,8 +625,8 @@ static void execute_command(ui_state_t *ui)
 		} else if (*arg == 'p') {
 			ui->sort_key = SORT_PID;
 		} else {
-			set_status(ui,
-			           "Usage: :sort o|m|p  (oom / memory / pid)");
+			set_status_error(
+			        ui, "Usage: :sort o|m|p  (oom / memory / pid)");
 			memset(ui->cmd_buf, 0, sizeof(ui->cmd_buf));
 			return;
 		}
@@ -642,8 +662,9 @@ static void execute_command(ui_state_t *ui)
 				         e->oom_score_adj);
 				set_status(ui, msg);
 			} else {
-				set_status(ui,
-				           "Error: could not save rules file.");
+				set_status_error(
+				        ui,
+				        "Error: could not save rules file.");
 			}
 		}
 	} else if (strcmp(cmd, "q") == 0 || strcmp(cmd, "quit") == 0) {
@@ -767,9 +788,10 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 				         new_val);
 				set_status(ui, msg);
 			} else {
-				set_status(ui,
-				           "Error: cannot write oom_score_adj "
-				           "(root required).");
+				set_status_error(
+				        ui,
+				        "Error: cannot write oom_score_adj "
+				        "(root required).");
 			}
 		}
 		break;
@@ -791,9 +813,10 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 				         new_val);
 				set_status(ui, msg);
 			} else {
-				set_status(ui,
-				           "Error: cannot write oom_score_adj "
-				           "(root required).");
+				set_status_error(
+				        ui,
+				        "Error: cannot write oom_score_adj "
+				        "(root required).");
 			}
 		}
 		break;
@@ -812,8 +835,9 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 				         e->oom_score_adj);
 				set_status(ui, msg);
 			} else {
-				set_status(ui,
-				           "Error: could not save rules file.");
+				set_status_error(
+				        ui,
+				        "Error: could not save rules file.");
 			}
 		}
 		break;
@@ -947,6 +971,7 @@ int ui_init(ui_state_t *ui,
 		init_pair(COLOR_OOM_POS, COLOR_RED, -1);
 		init_pair(COLOR_OOM_NEG, COLOR_GREEN, -1);
 		init_pair(COLOR_CMD, COLOR_YELLOW, -1);
+		init_pair(COLOR_ERROR, COLOR_WHITE, COLOR_RED);
 	}
 	cbreak();
 	noecho();

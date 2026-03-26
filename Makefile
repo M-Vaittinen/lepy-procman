@@ -10,6 +10,7 @@ SRCS = src/main.c \
        src/oom.c  \
        src/rules.c \
        src/search.c \
+       src/modlist.c \
        src/ui.c   \
        vendor/cjson/cJSON.c
 

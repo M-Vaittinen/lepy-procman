@@ -1,6 +1,7 @@
 #ifndef UI_H
 #define UI_H
 
+#include "modlist.h"
 #include "proc.h"
 #include "rules.h"
 #include "search.h"
@@ -34,6 +35,9 @@ typedef struct {
 	int status_ticks;     /* countdown to clear status_msg */
 	int status_is_error;  /* non-zero → show status bar in red */
 
+	modlist_t *modlist;    /* session-modified process list */
+	int purge_countdown;   /* ticks until next modlist_purge_dead() */
+
 	int auto_apply; /* mirror of CLI flag */
 	int pending_g;  /* for multi-key gg / GG sequences */
 
@@ -46,6 +50,7 @@ int ui_init(ui_state_t *ui,
             proc_list_t *procs,
             rules_t *rules,
             search_result_t *results,
+            modlist_t *modlist,
             int auto_apply);
 
 /* Main event loop. Returns when user quits. */

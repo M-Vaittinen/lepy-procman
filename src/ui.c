@@ -1,4 +1,5 @@
 #include "ui.h"
+#include "modlist.h"
 #include "oom.h"
 
 #include <ncurses.h>
@@ -11,6 +12,9 @@
 
 /* Refresh interval in tenths of a second (halfdelay) */
 #define REFRESH_TENTHS 20 /* 2 seconds */
+
+/* Number of refresh cycles between modlist_purge_dead() calls */
+#define PURGE_INTERVAL 5
 
 /* Column widths */
 #define COL_PID 7
@@ -512,6 +516,11 @@ static void refresh_procs(ui_state_t *ui)
 		ui->selected = 0;
 	else if (ui->selected >= ui->results->count)
 		ui->selected = ui->results->count - 1;
+
+	if (--ui->purge_countdown <= 0) {
+		modlist_purge_dead(ui->modlist);
+		ui->purge_countdown = PURGE_INTERVAL;
+	}
 }
 
 /* Handle a completed ex-command in cmd_buf */
@@ -667,6 +676,53 @@ static void execute_command(ui_state_t *ui)
 				        "Error: could not save rules file.");
 			}
 		}
+	} else if (strcmp(cmd, "modified") == 0) {
+		modlist_t *ml = ui->modlist;
+		char buf[4096];
+		int off = 0;
+		if (ml->count == 0) {
+			off += snprintf(buf + off, sizeof(buf) - off,
+			                "No processes modified this session.");
+		} else {
+			off += snprintf(buf + off, sizeof(buf) - off,
+			                "%-7s  %-15s  %s",
+			                "PID", "COMM", "OOM_SCORE_ADJ");
+			for (int i = 0; i < ml->count; i++) {
+				mod_entry_t *me = &ml->entries[i];
+				off += snprintf(buf + off,
+				                sizeof(buf) - off,
+				                "\n%-7d  %-15s  %d",
+				                (int)me->pid,
+				                me->name,
+				                me->oom_score_adj);
+			}
+		}
+		const char *lines[] = {buf};
+		show_overlay(lines, 1,
+		             " Modified processes (this session) ");
+		touchwin(stdscr);
+
+	} else if (strcmp(cmd, "saveall") == 0) {
+		modlist_t *ml = ui->modlist;
+		int saved = 0, skipped = 0;
+		for (int i = 0; i < ml->count; i++) {
+			mod_entry_t *me = &ml->entries[i];
+			if (modlist_is_alive(me->pid)) {
+				rules_upsert(ui->rules, me->name,
+				             me->oom_score_adj);
+				saved++;
+			} else {
+				skipped++;
+			}
+		}
+		if (saved > 0)
+			rules_save(ui->rules);
+		char msg[256];
+		snprintf(msg, sizeof(msg),
+		         "Saved %d rule(s), skipped %d dead process(es).",
+		         saved, skipped);
+		set_status(ui, msg);
+
 	} else if (strcmp(cmd, "q") == 0 || strcmp(cmd, "quit") == 0) {
 		ui->mode = MODE_NORMAL;
 		memset(ui->cmd_buf, 0, sizeof(ui->cmd_buf));
@@ -779,6 +835,8 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 			                        OOM_SCORE_ADJ_STEP);
 			if (oom_write(e->pid, new_val) == 0) {
 				e->oom_score_adj = new_val;
+				modlist_add(ui->modlist, e->pid, e->name,
+				            e->oom_score_adj);
 				char msg[512];
 				snprintf(msg,
 				         sizeof(msg),
@@ -804,6 +862,8 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 			                        OOM_SCORE_ADJ_STEP);
 			if (oom_write(e->pid, new_val) == 0) {
 				e->oom_score_adj = new_val;
+				modlist_add(ui->modlist, e->pid, e->name,
+				            e->oom_score_adj);
 				char msg[512];
 				snprintf(msg,
 				         sizeof(msg),
@@ -950,6 +1010,7 @@ int ui_init(ui_state_t *ui,
             proc_list_t *procs,
             rules_t *rules,
             search_result_t *results,
+            modlist_t *modlist,
             int auto_apply)
 {
 	memset(ui, 0, sizeof(*ui));
@@ -957,6 +1018,8 @@ int ui_init(ui_state_t *ui,
 	ui->rules = rules;
 	ui->results = results;
 	ui->auto_apply = auto_apply;
+	ui->modlist = modlist;
+	ui->purge_countdown = PURGE_INTERVAL;
 	ui->mode = MODE_NORMAL;
 
 	setlocale(LC_ALL, "");

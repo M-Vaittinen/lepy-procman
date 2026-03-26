@@ -2,6 +2,7 @@
 #include "oom.h"
 #include "rules.h"
 #include "search.h"
+#include "modlist.h"
 #include "ui.h"
 
 #include <stdio.h>
@@ -42,6 +43,8 @@ static void print_usage(const char *prog)
 	        "  :rules          List rules (interactive: ↑↓/jk + d to "
 	        "delete)\n"
 	        "  :del <name|n>   Remove rule by name or number\n"
+	        "  :modified       Show processes modified this session\n"
+	        "  :saveall        Save rules for all modified processes\n"
 	        "  :sort o         Sort by oom_score_adj (default)\n"
 	        "  :sort m         Sort by memory (RSS)\n"
 	        "  :sort p         Sort by PID\n"
@@ -76,8 +79,9 @@ int main(int argc, char *argv[])
 	proc_list_t *procs = proc_list_create();
 	rules_t *rules = rules_create();
 	search_result_t *results = search_result_create();
+	modlist_t *modlist = modlist_create();
 
-	if (!procs || !rules || !results) {
+	if (!procs || !rules || !results || !modlist) {
 		fprintf(stderr, "Out of memory.\n");
 		return 1;
 	}
@@ -85,7 +89,7 @@ int main(int argc, char *argv[])
 	rules_load(rules);
 
 	ui_state_t ui;
-	if (ui_init(&ui, procs, rules, results, auto_apply) != 0) {
+	if (ui_init(&ui, procs, rules, results, modlist, auto_apply) != 0) {
 		fprintf(stderr, "Failed to initialize terminal UI.\n");
 		return 1;
 	}
@@ -97,5 +101,6 @@ int main(int argc, char *argv[])
 	search_result_free(results);
 	rules_free(rules);
 	proc_list_free(procs);
+	modlist_free(modlist);
 	return 0;
 }

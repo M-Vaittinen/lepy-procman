@@ -679,31 +679,51 @@ static void execute_command(ui_state_t *ui)
 		}
 	} else if (strcmp(cmd, "modified") == 0) {
 		modlist_t *ml = ui->modlist;
-		char buf[4096];
-		int off = 0;
 		if (ml->count == 0) {
-			off += snprintf(buf + off,
-			                sizeof(buf) - off,
-			                "No processes modified this session.");
+			const char *lines[] = {
+			        "No processes modified this session."};
+			show_overlay(lines,
+			             1,
+			             " Modified processes (this session) ");
 		} else {
-			off += snprintf(buf + off,
-			                sizeof(buf) - off,
-			                "%-7s  %-15s  %s",
-			                "PID",
-			                "COMM",
-			                "OOM_SCORE_ADJ");
-			for (int i = 0; i < ml->count; i++) {
-				mod_entry_t *me = &ml->entries[i];
-				off += snprintf(buf + off,
-				                sizeof(buf) - off,
-				                "\n%-7d  %-15s  %d",
-				                (int)me->pid,
-				                me->name,
-				                me->oom_score_adj);
+			/* +1 for header row; each line: 7+2+PROC_NAME_MAX+2+6
+			 */
+			int nlines = ml->count + 1;
+			int linesz = PROC_NAME_MAX + 32;
+			char *bufs = calloc(nlines, linesz);
+			const char **lines =
+			        calloc(nlines, sizeof(const char *));
+			if (!bufs || !lines) {
+				free(bufs);
+				free(lines);
+				set_status_error(ui, "Out of memory.");
+			} else {
+				snprintf(bufs,
+				         linesz,
+				         "%-7s  %-15s  %s",
+				         "PID",
+				         "COMM",
+				         "OOM_SCORE_ADJ");
+				lines[0] = bufs;
+				for (int i = 0; i < ml->count; i++) {
+					mod_entry_t *me = &ml->entries[i];
+					char *row = bufs + (i + 1) * linesz;
+					snprintf(row,
+					         linesz,
+					         "%-7d  %-15s  %d",
+					         (int)me->pid,
+					         me->name,
+					         me->oom_score_adj);
+					lines[i + 1] = row;
+				}
+				show_overlay(
+				        lines,
+				        nlines,
+				        " Modified processes (this session) ");
+				free(bufs);
+				free(lines);
 			}
 		}
-		const char *lines[] = {buf};
-		show_overlay(lines, 1, " Modified processes (this session) ");
 		touchwin(stdscr);
 
 	} else if (strcmp(cmd, "saveall") == 0) {

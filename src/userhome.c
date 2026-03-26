@@ -254,3 +254,68 @@ const char *userhome_get(void)
 {
 	return resolved_home;
 }
+
+int userhome_init_headless(const char *username, char *errbuf, size_t errsz)
+{
+	struct passwd *pw;
+	const char *sudo_user;
+	const char *h;
+
+	if (username) {
+		pw = getpwnam(username);
+		if (!pw || !home_exists(pw->pw_dir)) {
+			snprintf(errbuf,
+			         errsz,
+			         "unknown user or no home directory: %s",
+			         username);
+
+			return -1;
+		}
+		snprintf(
+		        resolved_home, sizeof(resolved_home), "%s", pw->pw_dir);
+
+		return 0;
+	}
+
+	if (getuid() != 0) {
+		pw = getpwuid(getuid());
+		if (pw && home_exists(pw->pw_dir)) {
+			snprintf(resolved_home,
+			         sizeof(resolved_home),
+			         "%s",
+			         pw->pw_dir);
+
+			return 0;
+		}
+		h = getenv("HOME");
+		if (h) {
+			snprintf(resolved_home, sizeof(resolved_home), "%s", h);
+
+			return 0;
+		}
+		snprintf(errbuf, errsz, "cannot determine home directory");
+
+		return -1;
+	}
+
+	/* Root, no username: try SUDO_USER */
+	sudo_user = getenv("SUDO_USER");
+	if (sudo_user && sudo_user[0] != '\0') {
+		pw = getpwnam(sudo_user);
+		if (pw && home_exists(pw->pw_dir)) {
+			snprintf(resolved_home,
+			         sizeof(resolved_home),
+			         "%s",
+			         pw->pw_dir);
+
+			return 0;
+		}
+	}
+
+	snprintf(errbuf,
+	         errsz,
+	         "Cannot determine user home: not running via sudo "
+	         "and no --username given");
+
+	return -1;
+}

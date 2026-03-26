@@ -4,6 +4,7 @@
 #include "search.h"
 #include "modlist.h"
 #include "ui.h"
+#include "daemon.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +20,12 @@ static void print_usage(const char *prog)
 	        "Options:\n"
 	        "  --auto-apply    Apply stored rules at startup and on each "
 	        "refresh\n"
+	        "  --daemon        Run in background, applying rules "
+	        "periodically\n"
+	        "  --username U    User whose rules file to use (daemon+root "
+	        "only)\n"
+	        "  --interval N    Seconds between daemon apply cycles "
+	        "(default: 30)\n"
 	        "  -h, --help      Show this help\n"
 	        "\n"
 	        "Keys (Normal mode):\n"
@@ -60,35 +67,94 @@ static void print_usage(const char *prog)
 
 int main(int argc, char *argv[])
 {
+	proc_list_t *procs;
+	rules_t *rules;
+	search_result_t *results;
+	modlist_t *modlist;
+	ui_state_t ui;
 	int auto_apply = 0;
+	int daemon_mode = 0;
+	int interval_set = 0;
+	const char *username = NULL;
+	int interval = 30;
+	int i;
 
-	for (int i = 1; i < argc; i++) {
+	for (i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "--auto-apply") == 0) {
 			auto_apply = 1;
+		} else if (strcmp(argv[i], "--daemon") == 0) {
+			daemon_mode = 1;
+		} else if (strcmp(argv[i], "--username") == 0) {
+			if (i + 1 >= argc || argv[i + 1][0] == '-') {
+				fprintf(stderr,
+				        "--username requires an argument\n");
+
+				return 1;
+			}
+			i++;
+			username = argv[i];
+		} else if (strcmp(argv[i], "--interval") == 0) {
+			char *end;
+			long val;
+
+			if (i + 1 >= argc) {
+				fprintf(stderr,
+				        "--interval requires an argument\n");
+
+				return 1;
+			}
+			i++;
+			val = strtol(argv[i], &end, 10);
+			if (*end != '\0' || val <= 0) {
+				fprintf(stderr,
+				        "--interval: not a valid positive "
+				        "integer\n");
+
+				return 1;
+			}
+			interval = (int)val;
+			interval_set = 1;
 		} else if (strcmp(argv[i], "-h") == 0 ||
 		           strcmp(argv[i], "--help") == 0) {
 			print_usage(argv[0]);
+
 			return 0;
 		} else {
 			fprintf(stderr, "Unknown option: %s\n", argv[i]);
 			print_usage(argv[0]);
+
 			return 1;
 		}
 	}
 
-	proc_list_t *procs = proc_list_create();
-	rules_t *rules = rules_create();
-	search_result_t *results = search_result_create();
-	modlist_t *modlist = modlist_create();
+	if (username && !daemon_mode) {
+		fprintf(stderr, "--username requires --daemon\n");
 
-	if (!procs || !rules || !results || !modlist) {
-		fprintf(stderr, "Out of memory.\n");
+		return 1;
+	}
+	if (interval_set && !daemon_mode) {
+		fprintf(stderr, "--interval requires --daemon\n");
+
 		return 1;
 	}
 
-	ui_state_t ui;
+	if (daemon_mode)
+		return run_daemon(username, interval);
+
+	procs = proc_list_create();
+	rules = rules_create();
+	results = search_result_create();
+	modlist = modlist_create();
+
+	if (!procs || !rules || !results || !modlist) {
+		fprintf(stderr, "Out of memory.\n");
+
+		return 1;
+	}
+
 	if (ui_init(&ui, procs, rules, results, modlist, auto_apply) != 0) {
 		fprintf(stderr, "Failed to initialize terminal UI.\n");
+
 		return 1;
 	}
 
@@ -106,5 +172,6 @@ int main(int argc, char *argv[])
 	rules_free(rules);
 	proc_list_free(procs);
 	modlist_free(modlist);
+
 	return 0;
 }

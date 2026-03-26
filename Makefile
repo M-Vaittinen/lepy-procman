@@ -11,6 +11,7 @@ SRCS = src/main.c \
        src/rules.c \
        src/search.c \
        src/modlist.c \
+       src/daemon.c \
        src/userhome.c \
        src/ui.c   \
        vendor/cjson/cJSON.c

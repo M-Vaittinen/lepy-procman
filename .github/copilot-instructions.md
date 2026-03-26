@@ -24,6 +24,7 @@ uses `pkg-config --cflags/--libs ncursesw` — no manual flag changes needed.
 | `src/oom.c/h` | Read/write `/proc/<pid>/oom_score_adj`; `oom_clamp()` enforces ±1000 |
 | `src/rules.c/h` | JSON persistence (`~/.config/lepy-procman/rules.json`) via bundled cJSON |
 | `src/userhome.c/h` | Resolves the "real" user's home directory: uses current user if not root; checks `$SUDO_USER` if root; shows an interactive picker overlay if root without `SUDO_USER`. `userhome_init()` must be called after `initscr()`, before `rules_load()`. |
+| `src/daemon.c/h` | Daemon mode: headless rule-application loop; `run_daemon()` forks to background via `daemon(0,0)`, applies rules at `interval` seconds |
 | `src/modlist.c/h` | Session-scoped list of PIDs whose `oom_score_adj` was modified; `modlist_purge_dead()` removes dead processes periodically (every `PURGE_INTERVAL` refresh cycles); `modlist_is_alive()` checks a single PID right before `:saveall` writes |
 | `src/search.c/h` | Case-insensitive substring filter producing `search_result_t` (pointer view into proc_list) |
 | `src/ui.c/h` | Full ncurses TUI: normal / search / command modes, overlay popups, sort, key handling |

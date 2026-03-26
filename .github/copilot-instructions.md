@@ -57,6 +57,18 @@ clang-format -i src/*.c src/*.h
 
 Never run `clang-format` on `vendor/`.
 
+## Tags file
+
+A `tags` file is kept in the repo root for editor navigation (Vim, etc.).
+**After every code change** regenerate it with:
+
+```sh
+ctags -R --c-kinds=+p src/ vendor/
+```
+
+Run this after adding, removing, or renaming any function, type, or macro in
+`src/` or `vendor/cjson/`.
+
 ## Key Conventions
 
 - `proc_list_t` is always refreshed from `/proc` in-place; `search_result_t`

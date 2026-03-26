@@ -17,6 +17,7 @@
 !_TAG_KIND_DESCRIPTION!C	g,enum	/enumeration names/
 !_TAG_KIND_DESCRIPTION!C	h,header	/included header files/
 !_TAG_KIND_DESCRIPTION!C	m,member	/struct, and union members/
+!_TAG_KIND_DESCRIPTION!C	p,prototype	/function prototypes/
 !_TAG_KIND_DESCRIPTION!C	s,struct	/structure names/
 !_TAG_KIND_DESCRIPTION!C	t,typedef	/typedefs/
 !_TAG_KIND_DESCRIPTION!C	u,union	/union names/
@@ -31,31 +32,19 @@
 !_TAG_KIND_DESCRIPTION!C++	h,header	/included header files/
 !_TAG_KIND_DESCRIPTION!C++	m,member	/class, struct, and union members/
 !_TAG_KIND_DESCRIPTION!C++	n,namespace	/namespaces/
+!_TAG_KIND_DESCRIPTION!C++	p,prototype	/function prototypes/
 !_TAG_KIND_DESCRIPTION!C++	s,struct	/structure names/
 !_TAG_KIND_DESCRIPTION!C++	t,typedef	/typedefs/
 !_TAG_KIND_DESCRIPTION!C++	u,union	/union names/
 !_TAG_KIND_DESCRIPTION!C++	v,variable	/variable definitions/
-!_TAG_KIND_DESCRIPTION!Make	I,makefile	/makefiles/
-!_TAG_KIND_DESCRIPTION!Make	m,macro	/macros/
-!_TAG_KIND_DESCRIPTION!Make	t,target	/targets/
-!_TAG_KIND_DESCRIPTION!Markdown	S,subsection	/level 2 sections/
-!_TAG_KIND_DESCRIPTION!Markdown	T,l4subsection	/level 4 sections/
-!_TAG_KIND_DESCRIPTION!Markdown	c,chapter	/chapters/
-!_TAG_KIND_DESCRIPTION!Markdown	h,hashtag	/hashtags/
-!_TAG_KIND_DESCRIPTION!Markdown	n,footnote	/footnotes/
-!_TAG_KIND_DESCRIPTION!Markdown	s,section	/sections/
-!_TAG_KIND_DESCRIPTION!Markdown	t,subsubsection	/level 3 sections/
-!_TAG_KIND_DESCRIPTION!Markdown	u,l5subsection	/level 5 sections/
 !_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_OUTPUT_VERSION	1.1	/current.age/
 !_TAG_PARSER_VERSION!C	1.1	/current.age/
 !_TAG_PARSER_VERSION!C++	2.2	/current.age/
-!_TAG_PARSER_VERSION!Make	1.1	/current.age/
-!_TAG_PARSER_VERSION!Markdown	1.1	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mvaittin/nfsrp4/lepy-procman/	//
+!_TAG_PROC_CWD	/media/sf_nfsrp4/lepy-procman/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
@@ -73,15 +62,6 @@
 !_TAG_ROLE_DESCRIPTION!C++!module	imported	/imported with "imported ..."/
 !_TAG_ROLE_DESCRIPTION!C++!module	partOwner	/used for specifying a partition/
 !_TAG_ROLE_DESCRIPTION!C++!partition	imported	/imported with "imported ..."/
-!_TAG_ROLE_DESCRIPTION!Make!makefile	included	/included/
-!_TAG_ROLE_DESCRIPTION!Make!makefile	optional	/optionally included/
-$(TARGET)	Makefile	/^$(TARGET): $(OBJS)$/;"	t
-%.o	Makefile	/^%.o: %.c$/;"	t
-Architecture	.github/copilot-instructions.md	/^## Architecture$/;"	s	chapter:lepy-procman — Copilot Instructions
-Build	.github/copilot-instructions.md	/^## Build$/;"	s	chapter:lepy-procman — Copilot Instructions
-Build	README.md	/^## Build$/;"	s	chapter:lepy-procman
-CC	Makefile	/^CC      = gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS  = -Wall -Wextra -std=c11 -O2 -I src -I vendor\/cjson \\$/;"	m
 CJSON_CDECL	vendor/cjson/cJSON.c	/^    void (CJSON_CDECL *deallocate)(void *pointer);$/;"	m	struct:internal_hooks	typeref:typename:void (* deallocate)(void * pointer)	file:
 CJSON_CDECL	vendor/cjson/cJSON.c	/^    void *(CJSON_CDECL *allocate)(size_t size);$/;"	m	struct:internal_hooks	typeref:typename:void * (* allocate)(size_t size)	file:
 CJSON_CDECL	vendor/cjson/cJSON.c	/^    void *(CJSON_CDECL *reallocate)(void *pointer, size_t size);$/;"	m	struct:internal_hooks	typeref:typename:void * (* reallocate)(void * pointer,size_t size)	file:
@@ -107,16 +87,10 @@ COL_NAME	src/ui.c	/^#define COL_NAME /;"	d	file:
 COL_OOM	src/ui.c	/^#define COL_OOM /;"	d	file:
 COL_PID	src/ui.c	/^#define COL_PID /;"	d	file:
 COL_RSS	src/ui.c	/^#define COL_RSS /;"	d	file:
-Coding Style	.github/copilot-instructions.md	/^## Coding Style$/;"	s	chapter:lepy-procman — Copilot Instructions
-Command Mode (`:`)	README.md	/^### Command Mode (`:`)$/;"	S	section:lepy-procman""Key Bindings
 DAEMON_H	src/daemon.h	/^#define DAEMON_H$/;"	d
 DAEMON_NAME	src/daemon.c	/^#define DAEMON_NAME /;"	d	file:
 EASTER_CMD	src/ui.c	/^static const char EASTER_CMD[] = "\\xc3\\x84o\\xc3\\x84"; \/* ÄoÄ *\/$/;"	v	typeref:typename:const char[]	file:
 EASTER_MSG	src/ui.c	/^static const char EASTER_MSG[] = "Älä Ole Äkänen";$/;"	v	typeref:typename:const char[]	file:
-Install (optional)	README.md	/^## Install (optional)$/;"	s	chapter:lepy-procman
-Key Bindings	README.md	/^## Key Bindings$/;"	s	chapter:lepy-procman
-Key Conventions	.github/copilot-instructions.md	/^## Key Conventions$/;"	s	chapter:lepy-procman — Copilot Instructions
-LDFLAGS	Makefile	/^LDFLAGS = $(shell pkg-config --libs ncursesw) -lm$/;"	m
 MAX_REAL_USERS	src/userhome.c	/^#define MAX_REAL_USERS /;"	d	file:
 MIN_REAL_UID	src/userhome.c	/^#define MIN_REAL_UID /;"	d	file:
 MODE_COMMAND	src/ui.h	/^typedef enum { MODE_NORMAL, MODE_SEARCH, MODE_COMMAND } ui_mode_t;$/;"	e	enum:__anoncf381c500103
@@ -124,32 +98,22 @@ MODE_NORMAL	src/ui.h	/^typedef enum { MODE_NORMAL, MODE_SEARCH, MODE_COMMAND } u
 MODE_SEARCH	src/ui.h	/^typedef enum { MODE_NORMAL, MODE_SEARCH, MODE_COMMAND } ui_mode_t;$/;"	e	enum:__anoncf381c500103
 MODLIST_H	src/modlist.h	/^#define MODLIST_H$/;"	d
 NAN	vendor/cjson/cJSON.c	/^#define NAN /;"	d	file:
-Normal Mode	README.md	/^### Normal Mode$/;"	S	section:lepy-procman""Key Bindings
-OBJS	Makefile	/^OBJS = $(SRCS:.c=.o)$/;"	m
 OOM_H	src/oom.h	/^#define OOM_H$/;"	d
 OOM_SCORE_ADJ_MAX	src/oom.h	/^#define OOM_SCORE_ADJ_MAX /;"	d
 OOM_SCORE_ADJ_MIN	src/oom.h	/^#define OOM_SCORE_ADJ_MIN /;"	d
 OOM_SCORE_ADJ_STEP	src/oom.h	/^#define OOM_SCORE_ADJ_STEP /;"	d
-Options	README.md	/^### Options$/;"	S	section:lepy-procman""Usage
 PROC_H	src/proc.h	/^#define PROC_H$/;"	d
 PROC_LIST_MAX	src/proc.h	/^#define PROC_LIST_MAX /;"	d
 PROC_NAME_MAX	src/proc.h	/^#define PROC_NAME_MAX /;"	d
 PURGE_INTERVAL	src/ui.c	/^#define PURGE_INTERVAL /;"	d	file:
-Persistent Rules	README.md	/^## Persistent Rules$/;"	s	chapter:lepy-procman
 REFRESH_TENTHS	src/ui.c	/^#define REFRESH_TENTHS /;"	d	file:
 RULES_H	src/rules.h	/^#define RULES_H$/;"	d
-Repository location	.github/copilot-instructions.md	/^## Repository location$/;"	s	chapter:lepy-procman — Copilot Instructions
-Requirements	README.md	/^## Requirements$/;"	s	chapter:lepy-procman
 SEARCH_H	src/search.h	/^#define SEARCH_H$/;"	d
 SORT_MEM	src/ui.h	/^	SORT_MEM,     \/* by RSS descending *\/$/;"	e	enum:__anoncf381c500203
 SORT_OOM	src/ui.h	/^	SORT_OOM = 0, \/* default: by oom_score_adj descending *\/$/;"	e	enum:__anoncf381c500203
 SORT_PID	src/ui.h	/^	SORT_PID,     \/* by PID ascending *\/$/;"	e	enum:__anoncf381c500203
-SRCS	Makefile	/^SRCS = src\/main.c \\$/;"	m
-Search Mode (`/`)	README.md	/^### Search Mode (`\/`)$/;"	S	section:lepy-procman""Key Bindings
-TARGET	Makefile	/^TARGET  = lepy-procman$/;"	m
 UI_H	src/ui.h	/^#define UI_H$/;"	d
 USERHOME_H	src/userhome.h	/^#define USERHOME_H$/;"	d
-Usage	README.md	/^## Usage$/;"	s	chapter:lepy-procman
 _CRT_SECURE_NO_DEPRECATE	vendor/cjson/cJSON.c	/^#define _CRT_SECURE_NO_DEPRECATE$/;"	d	file:
 _GNU_SOURCE	src/search.c	/^#define _GNU_SOURCE$/;"	d	file:
 __WINDOWS__	vendor/cjson/cJSON.h	/^#define __WINDOWS__$/;"	d
@@ -168,7 +132,6 @@ __anoncf381c500203	src/ui.h	/^typedef enum {$/;"	g
 __anoncf381c500308	src/ui.h	/^typedef struct {$/;"	s
 add_item_to_array	vendor/cjson/cJSON.c	/^static cJSON_bool add_item_to_array(cJSON *array, cJSON *item)$/;"	f	typeref:typename:cJSON_bool	file:
 add_item_to_object	vendor/cjson/cJSON.c	/^static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * co/;"	f	typeref:typename:cJSON_bool	file:
-all	Makefile	/^all: $(TARGET)$/;"	t
 auto_apply	src/ui.h	/^	int auto_apply; \/* mirror of CLI flag *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
 buffer	vendor/cjson/cJSON.c	/^    unsigned char *buffer;$/;"	m	struct:__anon97072cdc0308	typeref:typename:unsigned char *	file:
 buffer_at_offset	vendor/cjson/cJSON.c	/^#define buffer_at_offset(/;"	d	file:
@@ -176,104 +139,183 @@ buffer_skip_whitespace	vendor/cjson/cJSON.c	/^static parse_buffer *buffer_skip_w
 cJSON	vendor/cjson/cJSON.h	/^typedef struct cJSON$/;"	s
 cJSON	vendor/cjson/cJSON.h	/^} cJSON;$/;"	t	typeref:struct:cJSON
 cJSON_AddArrayToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddArrayToObject(cJSON * const object, const char * const name)$/;"	f	typeref:typename:cJSON *
+cJSON_AddArrayToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddArrayToObject(cJSON * const object, const char * const name);$/;"	p	typeref:typename:cJSON *
 cJSON_AddBoolToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddBoolToObject(cJSON * const object, const char * const name, const /;"	f	typeref:typename:cJSON *
+cJSON_AddBoolToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddBoolToObject(cJSON * const object, const char * const name, const /;"	p	typeref:typename:cJSON *
 cJSON_AddFalseToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddFalseToObject(cJSON * const object, const char * const name)$/;"	f	typeref:typename:cJSON *
+cJSON_AddFalseToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddFalseToObject(cJSON * const object, const char * const name);$/;"	p	typeref:typename:cJSON *
 cJSON_AddItemReferenceToArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemReferenceToArray(cJSON *array, cJSON *item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_AddItemReferenceToArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemReferenceToArray(cJSON *array, cJSON *item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_AddItemReferenceToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemReferenceToObject(cJSON *object, const char *string, cJSON/;"	f	typeref:typename:cJSON_bool
+cJSON_AddItemReferenceToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemReferenceToObject(cJSON *object, const char *string, cJSON/;"	p	typeref:typename:cJSON_bool
 cJSON_AddItemToArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToArray(cJSON *array, cJSON *item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_AddItemToArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToArray(cJSON *array, cJSON *item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_AddItemToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_AddItemToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_AddItemToObjectCS	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObjectCS(cJSON *object, const char *string, cJSON *item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_AddItemToObjectCS	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToObjectCS(cJSON *object, const char *string, cJSON *item)/;"	p	typeref:typename:cJSON_bool
 cJSON_AddNullToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddNullToObject(cJSON * const object, const char * const name)$/;"	f	typeref:typename:cJSON *
+cJSON_AddNullToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddNullToObject(cJSON * const object, const char * const name);$/;"	p	typeref:typename:cJSON *
 cJSON_AddNumberToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddNumberToObject(cJSON * const object, const char * const name, cons/;"	f	typeref:typename:cJSON *
+cJSON_AddNumberToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddNumberToObject(cJSON * const object, const char * const name, cons/;"	p	typeref:typename:cJSON *
 cJSON_AddObjectToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddObjectToObject(cJSON * const object, const char * const name)$/;"	f	typeref:typename:cJSON *
+cJSON_AddObjectToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddObjectToObject(cJSON * const object, const char * const name);$/;"	p	typeref:typename:cJSON *
 cJSON_AddRawToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddRawToObject(cJSON * const object, const char * const name, const c/;"	f	typeref:typename:cJSON *
+cJSON_AddRawToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddRawToObject(cJSON * const object, const char * const name, const c/;"	p	typeref:typename:cJSON *
 cJSON_AddStringToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddStringToObject(cJSON * const object, const char * const name, cons/;"	f	typeref:typename:cJSON *
+cJSON_AddStringToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddStringToObject(cJSON * const object, const char * const name, cons/;"	p	typeref:typename:cJSON *
 cJSON_AddTrueToObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddTrueToObject(cJSON * const object, const char * const name)$/;"	f	typeref:typename:cJSON *
+cJSON_AddTrueToObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON*) cJSON_AddTrueToObject(cJSON * const object, const char * const name);$/;"	p	typeref:typename:cJSON *
 cJSON_Array	vendor/cjson/cJSON.h	/^#define cJSON_Array /;"	d
 cJSON_ArrayForEach	vendor/cjson/cJSON.h	/^#define cJSON_ArrayForEach(/;"	d
 cJSON_Compare	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON/;"	f	typeref:typename:cJSON_bool
+cJSON_Compare	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON/;"	p	typeref:typename:cJSON_bool
 cJSON_CreateArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArray(void)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArray(void);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateArrayReference	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child) {$/;"	f	typeref:typename:cJSON *
+cJSON_CreateArrayReference	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateBool	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateBool	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateDoubleArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateDoubleArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateFalse	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFalse(void)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateFalse	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFalse(void);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateFloatArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateFloatArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateIntArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateIntArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateNull	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNull(void)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateNull	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNull(void);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateNumber	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateNumber	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateObjectReference	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateObjectReference	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateRaw	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateRaw(const char *raw)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateRaw	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateRaw(const char *raw);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateString	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateString(const char *string)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateString	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateString(const char *string);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateStringArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char *const *strings, int count)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateStringArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char *const *strings, int count);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateStringReference	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateStringReference	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string);$/;"	p	typeref:typename:cJSON *
 cJSON_CreateTrue	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateTrue(void)$/;"	f	typeref:typename:cJSON *
+cJSON_CreateTrue	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateTrue(void);$/;"	p	typeref:typename:cJSON *
 cJSON_Delete	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)$/;"	f	typeref:typename:void
+cJSON_Delete	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_Delete(cJSON *item);$/;"	p	typeref:typename:void
 cJSON_DeleteItemFromArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromArray(cJSON *array, int which)$/;"	f	typeref:typename:void
+cJSON_DeleteItemFromArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromArray(cJSON *array, int which);$/;"	p	typeref:typename:void
 cJSON_DeleteItemFromObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObject(cJSON *object, const char *string)$/;"	f	typeref:typename:void
+cJSON_DeleteItemFromObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObject(cJSON *object, const char *string);$/;"	p	typeref:typename:void
 cJSON_DeleteItemFromObjectCaseSensitive	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObjectCaseSensitive(cJSON *object, const char *string)$/;"	f	typeref:typename:void
+cJSON_DeleteItemFromObjectCaseSensitive	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObjectCaseSensitive(cJSON *object, const char *string);$/;"	p	typeref:typename:void
 cJSON_DetachItemFromArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromArray(cJSON *array, int which)$/;"	f	typeref:typename:cJSON *
+cJSON_DetachItemFromArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromArray(cJSON *array, int which);$/;"	p	typeref:typename:cJSON *
 cJSON_DetachItemFromObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObject(cJSON *object, const char *string)$/;"	f	typeref:typename:cJSON *
+cJSON_DetachItemFromObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObject(cJSON *object, const char *string);$/;"	p	typeref:typename:cJSON *
 cJSON_DetachItemFromObjectCaseSensitive	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObjectCaseSensitive(cJSON *object, const char *string)$/;"	f	typeref:typename:cJSON *
+cJSON_DetachItemFromObjectCaseSensitive	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObjectCaseSensitive(cJSON *object, const char *string)/;"	p	typeref:typename:cJSON *
 cJSON_DetachItemViaPointer	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemViaPointer(cJSON *parent, cJSON * const item)$/;"	f	typeref:typename:cJSON *
+cJSON_DetachItemViaPointer	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemViaPointer(cJSON *parent, cJSON * const item);$/;"	p	typeref:typename:cJSON *
 cJSON_Duplicate	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse)$/;"	f	typeref:typename:cJSON *
+cJSON_Duplicate	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse);$/;"	p	typeref:typename:cJSON *
 cJSON_Duplicate_rec	vendor/cjson/cJSON.c	/^cJSON * cJSON_Duplicate_rec(const cJSON *item, size_t depth, cJSON_bool recurse)$/;"	f	typeref:typename:cJSON *
+cJSON_Duplicate_rec	vendor/cjson/cJSON.c	/^cJSON * cJSON_Duplicate_rec(const cJSON *item, size_t depth, cJSON_bool recurse);$/;"	p	typeref:typename:cJSON *	file:
 cJSON_False	vendor/cjson/cJSON.h	/^#define cJSON_False /;"	d
 cJSON_GetArrayItem	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetArrayItem(const cJSON *array, int index)$/;"	f	typeref:typename:cJSON *
+cJSON_GetArrayItem	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_GetArrayItem(const cJSON *array, int index);$/;"	p	typeref:typename:cJSON *
 cJSON_GetArraySize	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array)$/;"	f	typeref:typename:int
+cJSON_GetArraySize	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array);$/;"	p	typeref:typename:int
 cJSON_GetErrorPtr	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void)$/;"	f	typeref:typename:const char *
+cJSON_GetErrorPtr	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void);$/;"	p	typeref:typename:const char *
 cJSON_GetNumberValue	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(double) cJSON_GetNumberValue(const cJSON * const item)$/;"	f	typeref:typename:double
+cJSON_GetNumberValue	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(double) cJSON_GetNumberValue(const cJSON * const item);$/;"	p	typeref:typename:double
 cJSON_GetObjectItem	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItem(const cJSON * const object, const char * const string)$/;"	f	typeref:typename:cJSON *
+cJSON_GetObjectItem	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItem(const cJSON * const object, const char * const string)/;"	p	typeref:typename:cJSON *
 cJSON_GetObjectItemCaseSensitive	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * /;"	f	typeref:typename:cJSON *
+cJSON_GetObjectItemCaseSensitive	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * /;"	p	typeref:typename:cJSON *
 cJSON_GetStringValue	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_GetStringValue(const cJSON * const item)$/;"	f	typeref:typename:char *
+cJSON_GetStringValue	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_GetStringValue(const cJSON * const item);$/;"	p	typeref:typename:char *
 cJSON_HasObjectItem	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *string)$/;"	f	typeref:typename:cJSON_bool
+cJSON_HasObjectItem	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *string);$/;"	p	typeref:typename:cJSON_bool
 cJSON_Hooks	vendor/cjson/cJSON.h	/^typedef struct cJSON_Hooks$/;"	s
 cJSON_Hooks	vendor/cjson/cJSON.h	/^} cJSON_Hooks;$/;"	t	typeref:struct:cJSON_Hooks
 cJSON_InitHooks	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks)$/;"	f	typeref:typename:void
+cJSON_InitHooks	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks);$/;"	p	typeref:typename:void
 cJSON_InsertItemInArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_InsertItemInArray(cJSON *array, int which, cJSON *newitem)$/;"	f	typeref:typename:cJSON_bool
+cJSON_InsertItemInArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_InsertItemInArray(cJSON *array, int which, cJSON *newitem); \/* S/;"	p	typeref:typename:cJSON_bool
 cJSON_Invalid	vendor/cjson/cJSON.h	/^#define cJSON_Invalid /;"	d
 cJSON_IsArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsBool	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsBool	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsFalse	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsFalse	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsInvalid	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsInvalid	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsNull	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsNull	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsNumber	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsNumber	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsObject(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsObject(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsRaw	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsRaw(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsRaw	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsRaw(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsReference	vendor/cjson/cJSON.h	/^#define cJSON_IsReference /;"	d
 cJSON_IsString	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsString(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsString	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsString(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_IsTrue	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item)$/;"	f	typeref:typename:cJSON_bool
+cJSON_IsTrue	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item);$/;"	p	typeref:typename:cJSON_bool
 cJSON_Minify	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_Minify(char *json)$/;"	f	typeref:typename:void
+cJSON_Minify	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_Minify(char *json);$/;"	p	typeref:typename:void
 cJSON_NULL	vendor/cjson/cJSON.h	/^#define cJSON_NULL /;"	d
 cJSON_New_Item	vendor/cjson/cJSON.c	/^static cJSON *cJSON_New_Item(const internal_hooks * const hooks)$/;"	f	typeref:typename:cJSON *	file:
 cJSON_Number	vendor/cjson/cJSON.h	/^#define cJSON_Number /;"	d
 cJSON_Object	vendor/cjson/cJSON.h	/^#define cJSON_Object /;"	d
 cJSON_Parse	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_Parse(const char *value)$/;"	f	typeref:typename:cJSON *
+cJSON_Parse	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_Parse(const char *value);$/;"	p	typeref:typename:cJSON *
 cJSON_ParseWithLength	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithLength(const char *value, size_t buffer_length)$/;"	f	typeref:typename:cJSON *
+cJSON_ParseWithLength	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithLength(const char *value, size_t buffer_length);$/;"	p	typeref:typename:cJSON *
 cJSON_ParseWithLengthOpts	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithLengthOpts(const char *value, size_t buffer_length, const c/;"	f	typeref:typename:cJSON *
+cJSON_ParseWithLengthOpts	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithLengthOpts(const char *value, size_t buffer_length, const c/;"	p	typeref:typename:cJSON *
 cJSON_ParseWithOpts	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithOpts(const char *value, const char **return_parse_end, cJSO/;"	f	typeref:typename:cJSON *
+cJSON_ParseWithOpts	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithOpts(const char *value, const char **return_parse_end, cJSO/;"	p	typeref:typename:cJSON *
 cJSON_Print	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_Print(const cJSON *item)$/;"	f	typeref:typename:char *
+cJSON_Print	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_Print(const cJSON *item);$/;"	p	typeref:typename:char *
 cJSON_PrintBuffered	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt)$/;"	f	typeref:typename:char *
+cJSON_PrintBuffered	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt);$/;"	p	typeref:typename:char *
 cJSON_PrintPreallocated	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buffer, const int length, co/;"	f	typeref:typename:cJSON_bool
+cJSON_PrintPreallocated	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buffer, const int length, co/;"	p	typeref:typename:cJSON_bool
 cJSON_PrintUnformatted	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item)$/;"	f	typeref:typename:char *
+cJSON_PrintUnformatted	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item);$/;"	p	typeref:typename:char *
 cJSON_Raw	vendor/cjson/cJSON.h	/^#define cJSON_Raw /;"	d
 cJSON_ReplaceItemInArray	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInArray(cJSON *array, int which, cJSON *newitem)$/;"	f	typeref:typename:cJSON_bool
+cJSON_ReplaceItemInArray	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInArray(cJSON *array, int which, cJSON *newitem);$/;"	p	typeref:typename:cJSON_bool
 cJSON_ReplaceItemInObject	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObject(cJSON *object, const char *string, cJSON *new/;"	f	typeref:typename:cJSON_bool
+cJSON_ReplaceItemInObject	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObject(cJSON *object,const char *string,cJSON *newit/;"	p	typeref:typename:cJSON_bool
 cJSON_ReplaceItemInObjectCaseSensitive	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObjectCaseSensitive(cJSON *object, const char *strin/;"	f	typeref:typename:cJSON_bool
+cJSON_ReplaceItemInObjectCaseSensitive	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemInObjectCaseSensitive(cJSON *object,const char *string/;"	p	typeref:typename:cJSON_bool
 cJSON_ReplaceItemViaPointer	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON * const parent, cJSON * const item, c/;"	f	typeref:typename:cJSON_bool
+cJSON_ReplaceItemViaPointer	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON * const parent, cJSON * const item, c/;"	p	typeref:typename:cJSON_bool
 cJSON_SetBoolValue	vendor/cjson/cJSON.h	/^#define cJSON_SetBoolValue(/;"	d
 cJSON_SetIntValue	vendor/cjson/cJSON.h	/^#define cJSON_SetIntValue(/;"	d
 cJSON_SetNumberHelper	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)$/;"	f	typeref:typename:double
+cJSON_SetNumberHelper	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number);$/;"	p	typeref:typename:double
 cJSON_SetNumberValue	vendor/cjson/cJSON.h	/^#define cJSON_SetNumberValue(/;"	d
 cJSON_SetValuestring	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(char*) cJSON_SetValuestring(cJSON *object, const char *valuestring)$/;"	f	typeref:typename:char *
+cJSON_SetValuestring	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(char*) cJSON_SetValuestring(cJSON *object, const char *valuestring);$/;"	p	typeref:typename:char *
 cJSON_String	vendor/cjson/cJSON.h	/^#define cJSON_String /;"	d
 cJSON_StringIsConst	vendor/cjson/cJSON.h	/^#define cJSON_StringIsConst /;"	d
 cJSON_True	vendor/cjson/cJSON.h	/^#define cJSON_True /;"	d
 cJSON_Version	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(const char*) cJSON_Version(void)$/;"	f	typeref:typename:const char *
+cJSON_Version	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(const char*) cJSON_Version(void);$/;"	p	typeref:typename:const char *
 cJSON__h	vendor/cjson/cJSON.h	/^#define cJSON__h$/;"	d
 cJSON_bool	vendor/cjson/cJSON.h	/^typedef int cJSON_bool;$/;"	t	typeref:typename:int
 cJSON_free	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void) cJSON_free(void *object)$/;"	f	typeref:typename:void
+cJSON_free	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void) cJSON_free(void *object);$/;"	p	typeref:typename:void
 cJSON_malloc	vendor/cjson/cJSON.c	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size)$/;"	f	typeref:typename:void *
+cJSON_malloc	vendor/cjson/cJSON.h	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size);$/;"	p	typeref:typename:void *
 cJSON_strdup	vendor/cjson/cJSON.c	/^static unsigned char* cJSON_strdup(const unsigned char* string, const internal_hooks * const hoo/;"	f	typeref:typename:unsigned char *	file:
 can_access_at_index	vendor/cjson/cJSON.c	/^#define can_access_at_index(/;"	d	file:
 can_read	vendor/cjson/cJSON.c	/^#define can_read(/;"	d	file:
@@ -286,7 +328,6 @@ case_insensitive_strcmp	vendor/cjson/cJSON.c	/^static int case_insensitive_strcm
 cast_away_const	vendor/cjson/cJSON.c	/^static void* cast_away_const(const void* string)$/;"	f	typeref:typename:void *	file:
 child	vendor/cjson/cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON *
 cjson_min	vendor/cjson/cJSON.c	/^#define cjson_min(/;"	d	file:
-clean	Makefile	/^clean:$/;"	t
 cmd_buf	src/ui.h	/^	char cmd_buf[256];     \/* command mode input buffer *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:char[256]
 cmp_mem_desc	src/ui.c	/^static int cmp_mem_desc(const void *a, const void *b)$/;"	f	typeref:typename:int	file:
 cmp_oom_desc	src/ui.c	/^static int cmp_oom_desc(const void *a, const void *b)$/;"	f	typeref:typename:int	file:
@@ -328,7 +369,6 @@ has_login_shell	src/userhome.c	/^static int has_login_shell(const char *shell)$/
 home_exists	src/userhome.c	/^static int home_exists(const char *path)$/;"	f	typeref:typename:int	file:
 hooks	vendor/cjson/cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon97072cdc0208	typeref:typename:internal_hooks	file:
 hooks	vendor/cjson/cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon97072cdc0308	typeref:typename:internal_hooks	file:
-install	Makefile	/^install: $(TARGET)$/;"	t
 internal_free	vendor/cjson/cJSON.c	/^#define internal_free /;"	d	file:
 internal_free	vendor/cjson/cJSON.c	/^static void CJSON_CDECL internal_free(void *pointer)$/;"	f	typeref:typename:void CJSON_CDECL	file:
 internal_hooks	vendor/cjson/cJSON.c	/^typedef struct internal_hooks$/;"	s	file:
@@ -343,8 +383,6 @@ isnan	vendor/cjson/cJSON.c	/^#define isnan(/;"	d	file:
 json	vendor/cjson/cJSON.c	/^    const unsigned char *json;$/;"	m	struct:__anon97072cdc0108	typeref:typename:const unsigned char *	file:
 length	vendor/cjson/cJSON.c	/^    size_t length;$/;"	m	struct:__anon97072cdc0208	typeref:typename:size_t	file:
 length	vendor/cjson/cJSON.c	/^    size_t length;$/;"	m	struct:__anon97072cdc0308	typeref:typename:size_t	file:
-lepy-procman	README.md	/^# lepy-procman$/;"	c
-lepy-procman — Copilot Instructions	.github/copilot-instructions.md	/^# lepy-procman — Copilot Instructions$/;"	c
 main	src/main.c	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
 matches	src/search.h	/^	proc_entry_t **matches; \/* pointers into the source proc_list *\/$/;"	m	struct:__anon17053ee80108	typeref:typename:proc_entry_t **
 minify_string	vendor/cjson/cJSON.c	/^static void minify_string(char **input, char **output) {$/;"	f	typeref:typename:void	file:
@@ -352,10 +390,15 @@ mod_entry_t	src/modlist.h	/^} mod_entry_t;$/;"	t	typeref:struct:__anon50b8470e01
 mode	src/ui.h	/^	ui_mode_t mode;$/;"	m	struct:__anoncf381c500308	typeref:typename:ui_mode_t
 modlist	src/ui.h	/^	modlist_t *modlist;  \/* session-modified process list *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:modlist_t *
 modlist_add	src/modlist.c	/^void modlist_add(modlist_t *ml, pid_t pid, const char *name, int oom_score_adj)$/;"	f	typeref:typename:void
+modlist_add	src/modlist.h	/^void modlist_add(modlist_t *ml, pid_t pid, const char *name, int oom_score_adj);$/;"	p	typeref:typename:void
 modlist_create	src/modlist.c	/^modlist_t *modlist_create(void)$/;"	f	typeref:typename:modlist_t *
+modlist_create	src/modlist.h	/^modlist_t *modlist_create(void);$/;"	p	typeref:typename:modlist_t *
 modlist_free	src/modlist.c	/^void modlist_free(modlist_t *ml)$/;"	f	typeref:typename:void
+modlist_free	src/modlist.h	/^void modlist_free(modlist_t *ml);$/;"	p	typeref:typename:void
 modlist_is_alive	src/modlist.c	/^int modlist_is_alive(pid_t pid)$/;"	f	typeref:typename:int
+modlist_is_alive	src/modlist.h	/^int modlist_is_alive(pid_t pid);$/;"	p	typeref:typename:int
 modlist_purge_dead	src/modlist.c	/^void modlist_purge_dead(modlist_t *ml)$/;"	f	typeref:typename:void
+modlist_purge_dead	src/modlist.h	/^void modlist_purge_dead(modlist_t *ml);$/;"	p	typeref:typename:void
 modlist_t	src/modlist.h	/^} modlist_t;$/;"	t	typeref:struct:__anon50b8470e0208
 name	src/modlist.h	/^	char name[PROC_NAME_MAX];$/;"	m	struct:__anon50b8470e0108	typeref:typename:char[]
 name	src/proc.h	/^	char name[PROC_NAME_MAX];$/;"	m	struct:__anon72cd17660108	typeref:typename:char[]
@@ -365,19 +408,24 @@ noalloc	vendor/cjson/cJSON.c	/^    cJSON_bool noalloc;$/;"	m	struct:__anon97072c
 offset	vendor/cjson/cJSON.c	/^    size_t offset;$/;"	m	struct:__anon97072cdc0208	typeref:typename:size_t	file:
 offset	vendor/cjson/cJSON.c	/^    size_t offset;$/;"	m	struct:__anon97072cdc0308	typeref:typename:size_t	file:
 oom_clamp	src/oom.c	/^int oom_clamp(int value)$/;"	f	typeref:typename:int
+oom_clamp	src/oom.h	/^int oom_clamp(int value);$/;"	p	typeref:typename:int
 oom_read	src/oom.c	/^int oom_read(pid_t pid, int *out_value)$/;"	f	typeref:typename:int
+oom_read	src/oom.h	/^int oom_read(pid_t pid, int *out_value);$/;"	p	typeref:typename:int
 oom_score_adj	src/modlist.h	/^	int oom_score_adj;$/;"	m	struct:__anon50b8470e0108	typeref:typename:int
 oom_score_adj	src/proc.h	/^	int oom_score_adj; \/* current \/proc\/<pid>\/oom_score_adj *\/$/;"	m	struct:__anon72cd17660108	typeref:typename:int
 oom_score_adj	src/rules.h	/^	int oom_score_adj;$/;"	m	struct:__anon6d2fe53d0108	typeref:typename:int
-oom_score_adj Reference	README.md	/^## oom_score_adj Reference$/;"	s	chapter:lepy-procman
 oom_write	src/oom.c	/^int oom_write(pid_t pid, int value)$/;"	f	typeref:typename:int
+oom_write	src/oom.h	/^int oom_write(pid_t pid, int value);$/;"	p	typeref:typename:int
 parse_array	vendor/cjson/cJSON.c	/^static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
+parse_array	vendor/cjson/cJSON.c	/^static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buffer);$/;"	p	typeref:typename:cJSON_bool	file:
 parse_buffer	vendor/cjson/cJSON.c	/^} parse_buffer;$/;"	t	typeref:struct:__anon97072cdc0208	file:
 parse_hex4	vendor/cjson/cJSON.c	/^static unsigned parse_hex4(const unsigned char * const input)$/;"	f	typeref:typename:unsigned	file:
 parse_number	vendor/cjson/cJSON.c	/^static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
 parse_object	vendor/cjson/cJSON.c	/^static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
+parse_object	vendor/cjson/cJSON.c	/^static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_buffer);$/;"	p	typeref:typename:cJSON_bool	file:
 parse_string	vendor/cjson/cJSON.c	/^static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
 parse_value	vendor/cjson/cJSON.c	/^static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
+parse_value	vendor/cjson/cJSON.c	/^static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer);$/;"	p	typeref:typename:cJSON_bool	file:
 pending_g	src/ui.h	/^	int pending_g;  \/* for multi-key gg \/ GG sequences *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
 pick_user_overlay	src/userhome.c	/^pick_user_overlay(char names[MAX_REAL_USERS][64], int n, int *chosen)$/;"	f	typeref:typename:void	file:
 pid	src/modlist.h	/^	pid_t pid;$/;"	m	struct:__anon50b8470e0108	typeref:typename:pid_t
@@ -387,17 +435,23 @@ prev	vendor/cjson/cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:s
 prev_selected	src/ui.h	/^	int prev_selected; \/* position before last big jump (for ' ) *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
 print	vendor/cjson/cJSON.c	/^static unsigned char *print(const cJSON * const item, cJSON_bool format, const internal_hooks * /;"	f	typeref:typename:unsigned char *	file:
 print_array	vendor/cjson/cJSON.c	/^static cJSON_bool print_array(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
+print_array	vendor/cjson/cJSON.c	/^static cJSON_bool print_array(const cJSON * const item, printbuffer * const output_buffer);$/;"	p	typeref:typename:cJSON_bool	file:
 print_number	vendor/cjson/cJSON.c	/^static cJSON_bool print_number(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
 print_object	vendor/cjson/cJSON.c	/^static cJSON_bool print_object(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
+print_object	vendor/cjson/cJSON.c	/^static cJSON_bool print_object(const cJSON * const item, printbuffer * const output_buffer);$/;"	p	typeref:typename:cJSON_bool	file:
 print_string	vendor/cjson/cJSON.c	/^static cJSON_bool print_string(const cJSON * const item, printbuffer * const p)$/;"	f	typeref:typename:cJSON_bool	file:
 print_string_ptr	vendor/cjson/cJSON.c	/^static cJSON_bool print_string_ptr(const unsigned char * const input, printbuffer * const output/;"	f	typeref:typename:cJSON_bool	file:
 print_usage	src/main.c	/^static void print_usage(const char *prog)$/;"	f	typeref:typename:void	file:
 print_value	vendor/cjson/cJSON.c	/^static cJSON_bool print_value(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	typeref:typename:cJSON_bool	file:
+print_value	vendor/cjson/cJSON.c	/^static cJSON_bool print_value(const cJSON * const item, printbuffer * const output_buffer);$/;"	p	typeref:typename:cJSON_bool	file:
 printbuffer	vendor/cjson/cJSON.c	/^} printbuffer;$/;"	t	typeref:struct:__anon97072cdc0308	file:
 proc_entry_t	src/proc.h	/^} proc_entry_t;$/;"	t	typeref:struct:__anon72cd17660108
 proc_list_create	src/proc.c	/^proc_list_t *proc_list_create(void)$/;"	f	typeref:typename:proc_list_t *
+proc_list_create	src/proc.h	/^proc_list_t *proc_list_create(void);$/;"	p	typeref:typename:proc_list_t *
 proc_list_free	src/proc.c	/^void proc_list_free(proc_list_t *list)$/;"	f	typeref:typename:void
+proc_list_free	src/proc.h	/^void proc_list_free(proc_list_t *list);$/;"	p	typeref:typename:void
 proc_list_refresh	src/proc.c	/^int proc_list_refresh(proc_list_t *list)$/;"	f	typeref:typename:int
+proc_list_refresh	src/proc.h	/^int proc_list_refresh(proc_list_t *list);$/;"	p	typeref:typename:int
 proc_list_t	src/proc.h	/^} proc_list_t;$/;"	t	typeref:struct:__anon72cd17660208
 procs	src/ui.h	/^	proc_list_t *procs;$/;"	m	struct:__anoncf381c500308	typeref:typename:proc_list_t *
 purge_countdown	src/ui.h	/^	int purge_countdown; \/* ticks until next modlist_purge_dead() *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
@@ -411,21 +465,33 @@ rss_kb	src/proc.h	/^	long rss_kb;       \/* resident set size in kB *\/$/;"	m	st
 rule_t	src/rules.h	/^} rule_t;$/;"	t	typeref:struct:__anon6d2fe53d0108
 rules	src/ui.h	/^	rules_t *rules;$/;"	m	struct:__anoncf381c500308	typeref:typename:rules_t *
 rules_apply	src/rules.c	/^int rules_apply(const rules_t *r, proc_list_t *list)$/;"	f	typeref:typename:int
+rules_apply	src/rules.h	/^int rules_apply(const rules_t *r, proc_list_t *list);$/;"	p	typeref:typename:int
 rules_create	src/rules.c	/^rules_t *rules_create(void)$/;"	f	typeref:typename:rules_t *
+rules_create	src/rules.h	/^rules_t *rules_create(void);$/;"	p	typeref:typename:rules_t *
 rules_cursor	src/ui.h	/^	int rules_cursor; \/* selected row in :rules overlay *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
 rules_find	src/rules.c	/^const rule_t *rules_find(const rules_t *r, const char *name)$/;"	f	typeref:typename:const rule_t *
+rules_find	src/rules.h	/^const rule_t *rules_find(const rules_t *r, const char *name);$/;"	p	typeref:typename:const rule_t *
 rules_free	src/rules.c	/^void rules_free(rules_t *r)$/;"	f	typeref:typename:void
+rules_free	src/rules.h	/^void rules_free(rules_t *r);$/;"	p	typeref:typename:void
 rules_load	src/rules.c	/^int rules_load(rules_t *r)$/;"	f	typeref:typename:int
+rules_load	src/rules.h	/^int rules_load(rules_t *r);$/;"	p	typeref:typename:int
 rules_remove	src/rules.c	/^int rules_remove(rules_t *r, const char *name)$/;"	f	typeref:typename:int
+rules_remove	src/rules.h	/^int rules_remove(rules_t *r, const char *name);$/;"	p	typeref:typename:int
 rules_save	src/rules.c	/^int rules_save(const rules_t *r)$/;"	f	typeref:typename:int
+rules_save	src/rules.h	/^int rules_save(const rules_t *r);$/;"	p	typeref:typename:int
 rules_scroll	src/ui.h	/^	int rules_scroll; \/* top visible row in :rules overlay *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
 rules_t	src/rules.h	/^} rules_t;$/;"	t	typeref:struct:__anon6d2fe53d0208
 rules_upsert	src/rules.c	/^void rules_upsert(rules_t *r, const char *name, int oom_score_adj)$/;"	f	typeref:typename:void
+rules_upsert	src/rules.h	/^void rules_upsert(rules_t *r, const char *name, int oom_score_adj);$/;"	p	typeref:typename:void
 run_daemon	src/daemon.c	/^int run_daemon(const char *username, int interval)$/;"	f	typeref:typename:int
+run_daemon	src/daemon.h	/^int run_daemon(const char *username, int interval);$/;"	p	typeref:typename:int
 scroll_top	src/ui.h	/^	int scroll_top;    \/* first visible row index *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
 search_filter	src/search.c	/^int search_filter(search_result_t *sr,$/;"	f	typeref:typename:int
+search_filter	src/search.h	/^int search_filter(search_result_t *sr,$/;"	p	typeref:typename:int
 search_result_create	src/search.c	/^search_result_t *search_result_create(void)$/;"	f	typeref:typename:search_result_t *
+search_result_create	src/search.h	/^search_result_t *search_result_create(void);$/;"	p	typeref:typename:search_result_t *
 search_result_free	src/search.c	/^void search_result_free(search_result_t *sr)$/;"	f	typeref:typename:void
+search_result_free	src/search.h	/^void search_result_free(search_result_t *sr);$/;"	p	typeref:typename:void
 search_result_t	src/search.h	/^} search_result_t;$/;"	t	typeref:struct:__anon17053ee80108
 search_term	src/ui.h	/^	char search_term[256]; \/* current search input *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:char[256]
 selected	src/ui.h	/^	int selected;      \/* index into results *\/$/;"	m	struct:__anoncf381c500308	typeref:typename:int
@@ -449,14 +515,20 @@ suffix_object	vendor/cjson/cJSON.c	/^static void suffix_object(cJSON *prev, cJSO
 true	vendor/cjson/cJSON.c	/^#define true /;"	d	file:
 type	vendor/cjson/cJSON.h	/^    int type;$/;"	m	struct:cJSON	typeref:typename:int
 ui_cleanup	src/ui.c	/^void ui_cleanup(void)$/;"	f	typeref:typename:void
+ui_cleanup	src/ui.h	/^void ui_cleanup(void);$/;"	p	typeref:typename:void
 ui_init	src/ui.c	/^int ui_init(ui_state_t *ui,$/;"	f	typeref:typename:int
+ui_init	src/ui.h	/^int ui_init(ui_state_t *ui,$/;"	p	typeref:typename:int
 ui_mode_t	src/ui.h	/^typedef enum { MODE_NORMAL, MODE_SEARCH, MODE_COMMAND } ui_mode_t;$/;"	t	typeref:enum:__anoncf381c500103
 ui_run	src/ui.c	/^void ui_run(ui_state_t *ui)$/;"	f	typeref:typename:void
+ui_run	src/ui.h	/^void ui_run(ui_state_t *ui);$/;"	p	typeref:typename:void
 ui_state_t	src/ui.h	/^} ui_state_t;$/;"	t	typeref:struct:__anoncf381c500308
 update_offset	vendor/cjson/cJSON.c	/^static void update_offset(printbuffer * const buffer)$/;"	f	typeref:typename:void	file:
 userhome_get	src/userhome.c	/^const char *userhome_get(void)$/;"	f	typeref:typename:const char *
+userhome_get	src/userhome.h	/^const char *userhome_get(void);$/;"	p	typeref:typename:const char *
 userhome_init	src/userhome.c	/^int userhome_init(void)$/;"	f	typeref:typename:int
+userhome_init	src/userhome.h	/^int userhome_init(void);$/;"	p	typeref:typename:int
 userhome_init_headless	src/userhome.c	/^int userhome_init_headless(const char *username, char *errbuf, size_t errsz)$/;"	f	typeref:typename:int
+userhome_init_headless	src/userhome.h	/^int userhome_init_headless(const char *username, char *errbuf, size_t errsz);$/;"	p	typeref:typename:int
 utf16_literal_to_utf8	vendor/cjson/cJSON.c	/^static unsigned char utf16_literal_to_utf8(const unsigned char * const input_pointer, const unsi/;"	f	typeref:typename:unsigned char	file:
 valuedouble	vendor/cjson/cJSON.h	/^    double valuedouble;$/;"	m	struct:cJSON	typeref:typename:double
 valueint	vendor/cjson/cJSON.h	/^    int valueint;$/;"	m	struct:cJSON	typeref:typename:int

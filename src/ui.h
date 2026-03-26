@@ -35,8 +35,8 @@ typedef struct {
 	int status_ticks;     /* countdown to clear status_msg */
 	int status_is_error;  /* non-zero → show status bar in red */
 
-	modlist_t *modlist;    /* session-modified process list */
-	int purge_countdown;   /* ticks until next modlist_purge_dead() */
+	modlist_t *modlist;  /* session-modified process list */
+	int purge_countdown; /* ticks until next modlist_purge_dead() */
 
 	int auto_apply; /* mirror of CLI flag */
 	int pending_g;  /* for multi-key gg / GG sequences */

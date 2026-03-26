@@ -76,7 +76,7 @@ int proc_list_refresh(proc_list_t *list)
 			fclose(f);
 		}
 		long page_size_kb = 4; /* default 4 kB pages */
-		/* Try to get actual page size */
+		                       /* Try to get actual page size */
 #ifdef _SC_PAGESIZE
 		long ps = sysconf(_SC_PAGESIZE);
 		if (ps > 0)

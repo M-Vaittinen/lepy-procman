@@ -682,12 +682,16 @@ static void execute_command(ui_state_t *ui)
 		char buf[4096];
 		int off = 0;
 		if (ml->count == 0) {
-			off += snprintf(buf + off, sizeof(buf) - off,
+			off += snprintf(buf + off,
+			                sizeof(buf) - off,
 			                "No processes modified this session.");
 		} else {
-			off += snprintf(buf + off, sizeof(buf) - off,
+			off += snprintf(buf + off,
+			                sizeof(buf) - off,
 			                "%-7s  %-15s  %s",
-			                "PID", "COMM", "OOM_SCORE_ADJ");
+			                "PID",
+			                "COMM",
+			                "OOM_SCORE_ADJ");
 			for (int i = 0; i < ml->count; i++) {
 				mod_entry_t *me = &ml->entries[i];
 				off += snprintf(buf + off,
@@ -699,8 +703,7 @@ static void execute_command(ui_state_t *ui)
 			}
 		}
 		const char *lines[] = {buf};
-		show_overlay(lines, 1,
-		             " Modified processes (this session) ");
+		show_overlay(lines, 1, " Modified processes (this session) ");
 		touchwin(stdscr);
 
 	} else if (strcmp(cmd, "saveall") == 0) {
@@ -709,8 +712,8 @@ static void execute_command(ui_state_t *ui)
 		for (int i = 0; i < ml->count; i++) {
 			mod_entry_t *me = &ml->entries[i];
 			if (modlist_is_alive(me->pid)) {
-				rules_upsert(ui->rules, me->name,
-				             me->oom_score_adj);
+				rules_upsert(
+				        ui->rules, me->name, me->oom_score_adj);
 				saved++;
 			} else {
 				skipped++;
@@ -719,9 +722,11 @@ static void execute_command(ui_state_t *ui)
 		if (saved > 0)
 			rules_save(ui->rules);
 		char msg[256];
-		snprintf(msg, sizeof(msg),
+		snprintf(msg,
+		         sizeof(msg),
 		         "Saved %d rule(s), skipped %d dead process(es).",
-		         saved, skipped);
+		         saved,
+		         skipped);
 		set_status(ui, msg);
 
 	} else if (strcmp(cmd, "q") == 0 || strcmp(cmd, "quit") == 0) {
@@ -836,7 +841,9 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 			                        OOM_SCORE_ADJ_STEP);
 			if (oom_write(e->pid, new_val) == 0) {
 				e->oom_score_adj = new_val;
-				modlist_add(ui->modlist, e->pid, e->name,
+				modlist_add(ui->modlist,
+				            e->pid,
+				            e->name,
 				            e->oom_score_adj);
 				char msg[512];
 				snprintf(msg,
@@ -863,7 +870,9 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 			                        OOM_SCORE_ADJ_STEP);
 			if (oom_write(e->pid, new_val) == 0) {
 				e->oom_score_adj = new_val;
-				modlist_add(ui->modlist, e->pid, e->name,
+				modlist_add(ui->modlist,
+				            e->pid,
+				            e->name,
 				            e->oom_score_adj);
 				char msg[512];
 				snprintf(msg,

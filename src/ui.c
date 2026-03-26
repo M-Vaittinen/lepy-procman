@@ -121,31 +121,38 @@ static void set_status_error(ui_state_t *ui, const char *msg)
  */
 static void show_overlay(const char **lines, int nlines, const char *title)
 {
+	int max_w;
+	int rows, cols;
+	int box_w, box_h;
+	int start_y, start_x;
+	int i, l, r;
+	int avail, len;
+	const char *footer;
+
 	/* Find width of widest line (bytes, not columns — good enough for
 	 * ASCII-heavy content) */
-	int max_w = (int)strlen(title);
-	for (int i = 0; i < nlines; i++) {
-		int l = (int)strlen(lines[i]);
+	max_w = (int)strlen(title);
+	for (i = 0; i < nlines; i++) {
+		l = (int)strlen(lines[i]);
 		if (l > max_w)
 			max_w = l;
 	}
 
-	int rows, cols;
 	getmaxyx(stdscr, rows, cols);
 
-	int box_w = max_w + 4;  /* 2-char padding each side */
-	int box_h = nlines + 4; /* title + blank + lines + blank + footer */
+	box_w = max_w + 4;  /* 2-char padding each side */
+	box_h = nlines + 4; /* title + blank + lines + blank + footer */
 	if (box_w > cols - 2)
 		box_w = cols - 2;
 	if (box_h > rows - 2)
 		box_h = rows - 2;
 
-	int start_y = (rows - box_h) / 2;
-	int start_x = (cols - box_w) / 2;
+	start_y = (rows - box_h) / 2;
+	start_x = (cols - box_w) / 2;
 
 	/* Draw box */
 	attron(A_REVERSE);
-	for (int r = 0; r < box_h; r++) {
+	for (r = 0; r < box_h; r++) {
 		mvhline(start_y + r, start_x, ' ', box_w);
 	}
 	attroff(A_REVERSE);
@@ -171,18 +178,18 @@ static void show_overlay(const char **lines, int nlines, const char *title)
 	attroff(A_BOLD | A_REVERSE);
 
 	/* Content lines */
-	for (int i = 0; i < nlines && i < box_h - 4; i++) {
+	for (i = 0; i < nlines && i < box_h - 4; i++) {
 		move(start_y + 2 + i, start_x + 2);
 		/* Truncate to fit box width */
-		int avail = box_w - 4;
-		int len = (int)strlen(lines[i]);
+		avail = box_w - 4;
+		len = (int)strlen(lines[i]);
 		if (len > avail)
 			len = avail;
 		addnstr(lines[i], len);
 	}
 
 	/* Footer */
-	const char *footer = " Press any key to close ";
+	footer = " Press any key to close ";
 	mvprintw(start_y + box_h - 1,
 	         start_x + (box_w - (int)strlen(footer)) / 2,
 	         "%s",
@@ -203,29 +210,37 @@ static void show_overlay(const char **lines, int nlines, const char *title)
 static int show_rules_interactive(ui_state_t *ui)
 {
 	int deleted = 0;
+	int n;
+	int rows, cols;
+	int content, box_h, box_w;
+	int start_y, start_x;
+	char title[64];
+	int avail;
+	int i, idx, row, sel, r;
+	const char *footer;
+	int ch;
 
 	cbreak(); /* block on each keypress while overlay is open */
 
-redraw_rules: {
-	int n = ui->rules->count;
-	int rows, cols;
+redraw_rules:
+	n = ui->rules->count;
 	getmaxyx(stdscr, rows, cols);
 
 	/* Box dimensions: header row + one row per rule + footer */
-	int content = (n == 0) ? 1 : n + 1;
-	int box_h = content + 4;
-	int box_w = 52;
+	content = (n == 0) ? 1 : n + 1;
+	box_h = content + 4;
+	box_w = 52;
 	if (box_w > cols - 2)
 		box_w = cols - 2;
 	if (box_h > rows - 2)
 		box_h = rows - 2;
 
-	int start_y = (rows - box_h) / 2;
-	int start_x = (cols - box_w) / 2;
+	start_y = (rows - box_h) / 2;
+	start_x = (cols - box_w) / 2;
 
 	/* Background fill */
 	attron(A_REVERSE);
-	for (int r = 0; r < box_h; r++)
+	for (r = 0; r < box_h; r++)
 		mvhline(start_y + r, start_x, ' ', box_w);
 	attroff(A_REVERSE);
 
@@ -242,7 +257,6 @@ redraw_rules: {
 	attroff(A_BOLD);
 
 	/* Title */
-	char title[64];
 	snprintf(title, sizeof(title), " Saved Rules (%d) ", n);
 	attron(A_BOLD | A_REVERSE);
 	mvprintw(start_y,
@@ -264,7 +278,7 @@ redraw_rules: {
 		         "oom_score_adj");
 		attroff(A_BOLD);
 
-		int avail = box_h - 5; /* visible rule rows */
+		avail = box_h - 5; /* visible rule rows */
 		/* Clamp cursor */
 		if (ui->rules_cursor >= n)
 			ui->rules_cursor = n - 1;
@@ -277,12 +291,12 @@ redraw_rules: {
 		if (ui->rules_cursor >= ui->rules_scroll + avail)
 			ui->rules_scroll = ui->rules_cursor - avail + 1;
 
-		for (int i = 0; i < avail && i < n; i++) {
-			int idx = ui->rules_scroll + i;
+		for (i = 0; i < avail && i < n; i++) {
+			idx = ui->rules_scroll + i;
 			if (idx >= n)
 				break;
-			int row = start_y + 3 + i;
-			int sel = (idx == ui->rules_cursor);
+			row = start_y + 3 + i;
+			sel = (idx == ui->rules_cursor);
 			if (sel)
 				attron(A_BOLD | A_REVERSE);
 			else
@@ -299,18 +313,16 @@ redraw_rules: {
 	}
 
 	/* Footer */
-	const char *footer =
-	        n ? " ↑↓/jk navigate  d delete  Esc/q close " : " Esc/q close ";
+	footer = n ? " \u2191\u2193/jk navigate  d delete  Esc/q close "
+	           : " Esc/q close ";
 	mvprintw(start_y + box_h - 1,
 	         start_x + (box_w - (int)strlen(footer)) / 2,
 	         "%s",
 	         footer);
 
 	refresh();
-}
 
-	int ch = getch();
-	int n = ui->rules->count;
+	ch = getch();
 
 	if (ch == 27 || ch == 'q') {
 		/* close */
@@ -338,6 +350,7 @@ redraw_rules: {
 
 	halfdelay(REFRESH_TENTHS);
 	touchwin(stdscr);
+
 	return deleted;
 }
 
@@ -400,6 +413,8 @@ draw_row(ui_state_t *ui, int screen_row, proc_entry_t *e, int is_selected)
 static void draw_process_list(ui_state_t *ui)
 {
 	int list_rows = ui->rows - 3; /* header + status + mode line */
+	int row;
+
 	if (list_rows < 1)
 		return;
 
@@ -409,9 +424,10 @@ static void draw_process_list(ui_state_t *ui)
 	if (ui->selected >= ui->scroll_top + list_rows)
 		ui->scroll_top = ui->selected - list_rows + 1;
 
-	for (int row = 0; row < list_rows; row++) {
+	for (row = 0; row < list_rows; row++) {
 		int idx = ui->scroll_top + row;
 		int screen_row = row + 1; /* +1 for header */
+
 		if (idx < ui->results->count) {
 			proc_entry_t *e = ui->results->matches[idx];
 			draw_row(ui, screen_row, e, idx == ui->selected);
@@ -505,7 +521,9 @@ static void refresh_procs(ui_state_t *ui)
 
 	/* Try to restore selection by PID */
 	if (prev_pid >= 0) {
-		for (int i = 0; i < ui->results->count; i++) {
+		int i;
+
+		for (i = 0; i < ui->results->count; i++) {
 			if (ui->results->matches[i]->pid == prev_pid) {
 				ui->selected = i;
 				break;
@@ -693,6 +711,10 @@ static void execute_command(ui_state_t *ui)
 			char *bufs = calloc(nlines, linesz);
 			const char **lines =
 			        calloc(nlines, sizeof(const char *));
+			int i;
+			mod_entry_t *me;
+			char *row;
+
 			if (!bufs || !lines) {
 				free(bufs);
 				free(lines);
@@ -705,9 +727,9 @@ static void execute_command(ui_state_t *ui)
 				         "COMM",
 				         "OOM_SCORE_ADJ");
 				lines[0] = bufs;
-				for (int i = 0; i < ml->count; i++) {
-					mod_entry_t *me = &ml->entries[i];
-					char *row = bufs + (i + 1) * linesz;
+				for (i = 0; i < ml->count; i++) {
+					me = &ml->entries[i];
+					row = bufs + (i + 1) * linesz;
 					snprintf(row,
 					         linesz,
 					         "%-7d  %-15s  %d",
@@ -729,8 +751,12 @@ static void execute_command(ui_state_t *ui)
 	} else if (strcmp(cmd, "saveall") == 0) {
 		modlist_t *ml = ui->modlist;
 		int saved = 0, skipped = 0;
-		for (int i = 0; i < ml->count; i++) {
+		char msg[256];
+		int i;
+
+		for (i = 0; i < ml->count; i++) {
 			mod_entry_t *me = &ml->entries[i];
+
 			if (modlist_is_alive(me->pid)) {
 				rules_upsert(
 				        ui->rules, me->name, me->oom_score_adj);
@@ -741,7 +767,6 @@ static void execute_command(ui_state_t *ui)
 		}
 		if (saved > 0)
 			rules_save(ui->rules);
-		char msg[256];
 		snprintf(msg,
 		         sizeof(msg),
 		         "Saved %d rule(s), skipped %d dead process(es).",

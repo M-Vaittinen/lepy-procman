@@ -1,5 +1,6 @@
 #include "rules.h"
 #include "oom.h"
+#include "userhome.h"
 #include "cJSON.h"
 
 #include <stdlib.h>
@@ -11,8 +12,8 @@
 /* Returns path to rules file: ~/.config/lepy-procman/rules.json */
 static int get_rules_path(char *buf, size_t size)
 {
-	const char *home = getenv("HOME");
-	if (!home)
+	const char *home = userhome_get();
+	if (!home || !*home)
 		home = "/root";
 	snprintf(buf, size, "%s/.config/lepy-procman/rules.json", home);
 	return 0;
@@ -21,8 +22,8 @@ static int get_rules_path(char *buf, size_t size)
 static int ensure_config_dir(void)
 {
 	char path[512];
-	const char *home = getenv("HOME");
-	if (!home)
+	const char *home = userhome_get();
+	if (!home || !*home)
 		home = "/root";
 	snprintf(path, sizeof(path), "%s/.config", home);
 	mkdir(path, 0755);

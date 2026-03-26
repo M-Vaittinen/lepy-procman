@@ -86,13 +86,17 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	rules_load(rules);
-
 	ui_state_t ui;
 	if (ui_init(&ui, procs, rules, results, modlist, auto_apply) != 0) {
 		fprintf(stderr, "Failed to initialize terminal UI.\n");
 		return 1;
 	}
+
+	/*
+	 * ui_init() calls userhome_init() internally (needs ncurses up).
+	 * rules_load() must come after so it reads from the correct home.
+	 */
+	rules_load(rules);
 
 	ui_run(&ui);
 

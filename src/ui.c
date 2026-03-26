@@ -1,5 +1,6 @@
 #include "ui.h"
 #include "modlist.h"
+#include "userhome.h"
 #include "oom.h"
 
 #include <ncurses.h>
@@ -1041,6 +1042,8 @@ int ui_init(ui_state_t *ui,
 	keypad(stdscr, TRUE);
 	halfdelay(REFRESH_TENTHS);
 	curs_set(0);
+
+	userhome_init();
 
 	getmaxyx(stdscr, ui->rows, ui->cols);
 	return 0;

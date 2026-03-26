@@ -781,6 +781,17 @@ static void handle_normal_key(ui_state_t *ui, int ch)
 	ui->pending_g = 0;
 
 	switch (ch) {
+	case 27: /* Escape — clear active search filter */
+		if (ui->search_term[0] != '\0') {
+			memset(ui->search_term, 0, sizeof(ui->search_term));
+			search_filter(ui->results, ui->procs, NULL);
+			sort_results(ui);
+			if (ui->selected >= ui->results->count &&
+			    ui->results->count > 0)
+				ui->selected = ui->results->count - 1;
+		}
+		break;
+
 	case 'q':
 		ui_cleanup();
 		exit(0);

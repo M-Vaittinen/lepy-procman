@@ -313,7 +313,8 @@ redraw_rules:
 	}
 
 	/* Footer */
-	footer = n ? " \u2191\u2193/jk navigate  d delete  Esc/q close "
+	footer = n ? " \u2191\u2193/jk nav  +/- adj  a apply  d del  Esc/q "
+	             "close "
 	           : " Esc/q close ";
 	mvprintw(start_y + box_h - 1,
 	         start_x + (box_w - (int)strlen(footer)) / 2,
@@ -324,27 +325,64 @@ redraw_rules:
 
 	ch = getch();
 
-	if (ch == 27 || ch == 'q') {
-		/* close */
-	} else if ((ch == KEY_UP || ch == 'k') && n > 0) {
-		if (ui->rules_cursor > 0)
+	switch (ch) {
+	case 27: /* Escape */
+	case 'q':
+		break; /* close overlay */
+
+	case KEY_UP:
+	case 'k':
+		if (n > 0 && ui->rules_cursor > 0)
 			ui->rules_cursor--;
 		goto redraw_rules;
-	} else if ((ch == KEY_DOWN || ch == 'j') && n > 0) {
-		if (ui->rules_cursor < n - 1)
+
+	case KEY_DOWN:
+	case 'j':
+		if (n > 0 && ui->rules_cursor < n - 1)
 			ui->rules_cursor++;
 		goto redraw_rules;
-	} else if (ch == 'd' && n > 0) {
-		rules_remove(ui->rules,
-		             ui->rules->entries[ui->rules_cursor].name);
-		rules_save(ui->rules);
-		deleted = 1;
-		/* keep cursor in bounds */
-		if (ui->rules_cursor >= ui->rules->count &&
-		    ui->rules_cursor > 0)
-			ui->rules_cursor--;
+
+	case '+':
+		if (n > 0) {
+			rule_t *re = &ui->rules->entries[ui->rules_cursor];
+
+			re->oom_score_adj = oom_clamp(re->oom_score_adj +
+			                              OOM_SCORE_ADJ_STEP);
+			rules_upsert(ui->rules, re->name, re->oom_score_adj);
+			rules_save(ui->rules);
+		}
 		goto redraw_rules;
-	} else {
+
+	case '-':
+		if (n > 0) {
+			rule_t *re = &ui->rules->entries[ui->rules_cursor];
+
+			re->oom_score_adj = oom_clamp(re->oom_score_adj -
+			                              OOM_SCORE_ADJ_STEP);
+			rules_upsert(ui->rules, re->name, re->oom_score_adj);
+			rules_save(ui->rules);
+		}
+		goto redraw_rules;
+
+	case 'a':
+		if (n > 0)
+			rules_apply(ui->rules, ui->procs);
+		goto redraw_rules;
+
+	case 'd':
+		if (n > 0) {
+			rules_remove(ui->rules,
+			             ui->rules->entries[ui->rules_cursor].name);
+			rules_save(ui->rules);
+			deleted = 1;
+			/* keep cursor in bounds */
+			if (ui->rules_cursor >= ui->rules->count &&
+			    ui->rules_cursor > 0)
+				ui->rules_cursor--;
+		}
+		goto redraw_rules;
+
+	default:
 		goto redraw_rules;
 	}
 

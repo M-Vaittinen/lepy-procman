@@ -3,13 +3,12 @@
 A terminal UI for managing Linux OOM killer scores. **LePy edition.**
 
 **NOTE**
->Plenty of this code has been AI-generated. Use with own risk. No Warranty given.
+> Plenty of this code has been AI-generated. Use with own risk. No Warranty given.
 >
->Prompts have been engineered by me, and I've reviewed the code to some extent.
-It doesn't mean there couldn't be some hiccups here and there. Some parts of
-this have been hand-crafted, which probably makes it even worse :)
+> Prompts have been engineered by me, and I've reviewed the code to some extent.
+> It doesn't mean there couldn't be some hiccups here and there.
 >
->I need to second it - no warranty given. Use at your own risk. May cause damage.
+> I need to second it - no warranty given. Use at your own risk. May cause damage.
 
 Tired of the OOM killer picking the wrong process to sacrifice? `lepy-procman`
 lets you browse running processes and adjust their `oom_score_adj` value on the
